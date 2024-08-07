@@ -15,6 +15,11 @@ git clone https://github.com/BatiaForWorld/home_work.git
 
 1. Откройте приложение PyCharm.
 2. Клонирйте проект
+3. Проект оснащён тестами. Исользуйте команду pytest для тестирования:
+
+```
+poetry run pytest --cov
+```
 
 ## Документация:
 
