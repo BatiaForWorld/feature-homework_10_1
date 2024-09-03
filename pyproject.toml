@@ -8,6 +8,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 
+[tool.pytest.ini_options]
+addopts = "--cov=scr --cov-report=html"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.0.0"
