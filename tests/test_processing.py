@@ -12,16 +12,27 @@ def sample_data() -> list[dict[str, str]]:
     ]
 
 
-@pytest.mark.parametrize("state, expected_result", [
-    ("EXECUTED", [
-        {"state": "EXECUTED", "date": "2022-01-01"},
-        {"state": "EXECUTED", "date": "2022-03-01"},
-    ]),
-    ("CANCELLED", [
-        {"state": "CANCELLED", "date": "2022-04-01"},
-    ]),
-])
-def test_filter_by_state(sample_data, state, expected_result):
+@pytest.mark.parametrize(
+    "state, expected_result",
+    [
+        (
+            "EXECUTED",
+            [
+                {"state": "EXECUTED", "date": "2022-01-01"},
+                {"state": "EXECUTED", "date": "2022-03-01"},
+            ],
+        ),
+        (
+            "CANCELLED",
+            [
+                {"state": "CANCELLED", "date": "2022-04-01"},
+            ],
+        ),
+    ],
+)
+def test_filter_by_state(sample_data: list[dict[str, str]],
+                         state: str,
+                         expected_result: list[dict[str, str] | dict[str, str]] | list[dict[str, str]]) -> None:
     assert filter_by_state(sample_data, state) == expected_result
 
 
@@ -29,20 +40,20 @@ def test_filter_by_state(sample_data, state, expected_result):
     "reverse, expected_result",
     [
         (
-                True,
-                [
-                    {"state": "CANCELLED", "date": "2022-04-01"},
-                    {"state": "EXECUTED", "date": "2022-03-01"},
-                    {"state": "EXECUTED", "date": "2022-01-01"},
-                ],
+            True,
+            [
+                {"state": "CANCELLED", "date": "2022-04-01"},
+                {"state": "EXECUTED", "date": "2022-03-01"},
+                {"state": "EXECUTED", "date": "2022-01-01"},
+            ],
         ),
         (
-                False,
-                [
-                    {"state": "EXECUTED", "date": "2022-01-01"},
-                    {"state": "EXECUTED", "date": "2022-03-01"},
-                    {"state": "CANCELLED", "date": "2022-04-01"},
-                ],
+            False,
+            [
+                {"state": "EXECUTED", "date": "2022-01-01"},
+                {"state": "EXECUTED", "date": "2022-03-01"},
+                {"state": "CANCELLED", "date": "2022-04-01"},
+            ],
         ),
     ],
 )

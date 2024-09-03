@@ -34,3 +34,48 @@ def masc_account_correct() -> str:
 @pytest.fixture
 def masc_card_wrong_format() -> str:
     return "Введите корректные данные"
+
+
+@pytest.fixture
+def transaction_description_correct() -> list[dict[str, str] | dict[str, str] | dict[str, str]]:
+    return [
+        {"description": "Перевод со счета на счет"},
+        {"description": "Перевод организации"},
+        {"description": "Перевод с карты на карту"},
+    ]
+
+
+@pytest.fixture
+def transaction_descriptions_empty_list() -> list:
+    return []
+
+
+@pytest.fixture
+def card_number_generator_correct() -> list[str]:
+    return [
+        "0000 0000 0000 0001",
+        "0000 0000 0000 0002",
+        "0000 0000 0000 0003",
+    ]
+
+
+@pytest.fixture
+def card_number_generator_correct_d_digit() -> list[str]:
+    return [
+        "0000 0000 0000 0010",
+        "0000 0000 0000 0011",
+        "0000 0000 0000 0012",
+        "0000 0000 0000 0013",
+        "0000 0000 0000 0014",
+        "0000 0000 0000 0015",
+    ]
+
+
+@pytest.fixture
+def card_number_generator_full() -> list[str]:
+    return ["9999 9999 9999 9999"]
+
+
+@pytest.fixture
+def card_number_generator_invalid() -> list:
+    return []
