@@ -37,7 +37,7 @@ def masc_card_wrong_format() -> str:
 
 
 @pytest.fixture
-def transaction_description_correct():
+def transaction_description_correct() -> list[dict[str, str] | dict[str, str] | dict[str, str]]:
     return [
         {"description": "Перевод со счета на счет"},
         {"description": "Перевод организации"},
@@ -46,12 +46,12 @@ def transaction_description_correct():
 
 
 @pytest.fixture
-def transaction_descriptions_empty_list():
+def transaction_descriptions_empty_list() -> list:
     return []
 
 
 @pytest.fixture
-def card_number_generator_correct():
+def card_number_generator_correct() -> list[str]:
     return [
         "0000 0000 0000 0001",
         "0000 0000 0000 0002",
@@ -60,7 +60,7 @@ def card_number_generator_correct():
 
 
 @pytest.fixture
-def card_number_generator_correct_d_digit():
+def card_number_generator_correct_d_digit() -> list[str]:
     return [
         "0000 0000 0000 0010",
         "0000 0000 0000 0011",
@@ -72,10 +72,10 @@ def card_number_generator_correct_d_digit():
 
 
 @pytest.fixture
-def card_number_generator_full():
+def card_number_generator_full() -> list[str]:
     return ["9999 9999 9999 9999"]
 
 
 @pytest.fixture
-def card_number_generator_invalid():
+def card_number_generator_invalid() -> list:
     return []

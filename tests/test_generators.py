@@ -120,20 +120,20 @@ def test_filter_by_currency(transactions, currency, expected_transactions):
     assert result == expected_transactions
 
 
-def test_transaction_descriptions_correct(transaction_description_correct):
+def test_transaction_descriptions_correct(transaction_description_correct: list[dict[str, str]]) -> None:
     result = list(transaction_descriptions(transaction_description_correct))
     expected = ["Перевод со счета на счет", "Перевод организации", "Перевод с карты на карту"]
     assert result == expected
 
 
-def test_transaction_descriptions_empty_list(transaction_descriptions_empty_list):
+def test_transaction_descriptions_empty_list(transaction_descriptions_empty_list: list) -> None:
     transaction_descriptions_empty_list = []
     result = list(transaction_descriptions(transaction_descriptions_empty_list))
-    expected = []
+    expected = transaction_descriptions_empty_list
     assert result == expected
 
 
-def test_card_number_generator(card_number_generator_correct):
+def test_card_number_generator(card_number_generator_correct: list[str]) -> None:
     start = 1
     stop = 3
     result = list(card_number_generator(start, stop))
@@ -141,7 +141,7 @@ def test_card_number_generator(card_number_generator_correct):
     assert result == expected
 
 
-def test_card_number_generator_d_digit(card_number_generator_correct_d_digit):
+def test_card_number_generator_d_digit(card_number_generator_correct_d_digit: list[str]) -> None:
     start = 10
     stop = 15
     result = list(card_number_generator(start, stop))
@@ -149,7 +149,7 @@ def test_card_number_generator_d_digit(card_number_generator_correct_d_digit):
     assert result == expected
 
 
-def test_card_number_generator_full(card_number_generator_full):
+def test_card_number_generator_full(card_number_generator_full: list[str]) -> None:
     start = 9999999999999999
     stop = 9999999999999999
     result = list(card_number_generator(start, stop))
@@ -157,7 +157,7 @@ def test_card_number_generator_full(card_number_generator_full):
     assert result == expected
 
 
-def test_card_number_generator_invalid(card_number_generator_invalid):
+def test_card_number_generator_invalid(card_number_generator_invalid: list) -> None:
     start = 10
     stop = 1
     result = list(card_number_generator(start, stop))
