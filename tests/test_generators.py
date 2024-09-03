@@ -114,3 +114,15 @@ def transactions():
 def test_filter_by_currency(transactions, currency, expected_transactions):
     result = list(filter_by_currency(transactions, currency))
     assert result == expected_transactions
+
+def test_transaction_descriptions_correct(transaction_description_correct):
+    result = list(transaction_descriptions(transaction_description_correct))
+    expected = ["Перевод со счета на счет", "Перевод организации", "Перевод с карты на карту"]
+    assert result == expected
+
+
+def test_transaction_descriptions_empty_list(transaction_descriptions_empty_list):
+    transaction_descriptions_empty_list = []
+    result = list(transaction_descriptions(transaction_descriptions_empty_list))
+    expected = []
+    assert result == expected
