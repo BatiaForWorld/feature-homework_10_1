@@ -79,3 +79,15 @@ def card_number_generator_full() -> list[str]:
 @pytest.fixture
 def card_number_generator_invalid() -> list:
     return []
+
+
+@pytest.fixture(autouse=True)
+def clean_log_file():
+    filename = "test_log.txt"
+
+    with open(filename, "w"):
+        pass
+    yield
+
+    with open(filename, "w"):
+        pass
