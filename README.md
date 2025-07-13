@@ -9,7 +9,7 @@
 1. Клонируйте репозиторий:
 
 ```
-git clone https://github.com/BatiaForWorld/home_work.git
+git clone https://github.com/BatiaForWorld/feature-homework_10_1.git
 ```
 
 2. Зависимости в файле ```pyproject.toml```
