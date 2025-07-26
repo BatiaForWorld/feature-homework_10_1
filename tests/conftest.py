@@ -91,3 +91,14 @@ def clean_log_file():
 
     with open(filename, "w"):
         pass
+
+
+@pytest.fixture
+def tmp_json_file(tmp_path):
+    def create(content):
+        file_path = tmp_path / "test.json"
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(content)
+        return str(file_path)
+
+    return create
