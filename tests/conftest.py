@@ -81,6 +81,7 @@ def card_number_generator_invalid() -> list:
     return []
 
 
+
 @pytest.fixture(autouse=True)
 def clean_log_file():
     filename = "test_log.txt"
@@ -107,3 +108,4 @@ def tmp_json_file(tmp_path):
 @pytest.fixture
 def transaction_usd():
     return {"amount": "100", "currency": "USD"}
+
