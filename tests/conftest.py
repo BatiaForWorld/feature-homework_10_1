@@ -102,3 +102,8 @@ def tmp_json_file(tmp_path):
         return str(file_path)
 
     return create
+
+
+@pytest.fixture
+def transaction_usd():
+    return {"amount": "100", "currency": "USD"}
