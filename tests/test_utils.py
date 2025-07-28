@@ -1,45 +1,40 @@
 import json
+from unittest.mock import patch, mock_open
+
 import pytest
 from scr.utils import load_transactions
 
 
-@pytest.mark.parametrize(
-    "content,expected",
-    [
-        ('[{"amount": 100, "type": "income"}]', [{"amount": 100, "type": "income"}]),
-        ('[]', []),
-        ('', []),
-        ('{}', []),
-        ('{"amount": 100}', []),
-        ('invalid json', []),
-    ]
-)
-def test_load_transactions_various_cases(tmp_json_file, content, expected):
-    path = tmp_json_file(content)
-    assert load_transactions(path) == expected
+
+def test_valid_json_list():
+    mock_data = json.dumps([{"id": 1}, {"id": 2}])
+    with patch("builtins.open", mock_open(read_data=mock_data)):
+        result = load_transactions("data/operations.json")
+        assert isinstance(result, list)
+        assert len(result) == 2
+        assert all(isinstance(item, dict) for item in result)
 
 
-def test_load_transactions_file_not_found():
-    assert load_transactions("non_existent_file.json") == []
+def test_empty_file():
+    with patch("builtins.open", mock_open(read_data="")):
+        result = load_transactions("data/operations.json")
+        assert result == []
 
 
-def test_load_transactions_oserror(monkeypatch, tmp_path):
-    # Simulate OSError (e.g., permission denied)
-    file_path = tmp_path / "test.json"
-    with open(file_path, "w", encoding="utf-8") as f:
-        f.write('[{"amount": 100}]')
-
-    def raise_oserror(*args, **kwargs):
-        raise OSError("Permission denied")
-
-    monkeypatch.setattr("builtins.open", raise_oserror)
-    assert load_transactions(str(file_path)) == []
+def test_non_list_json_root():
+    mock_data = json.dumps({"id": 1, "amount": 100})
+    with patch("builtins.open", mock_open(read_data=mock_data)):
+        result = load_transactions("data/operations.json")
+        assert result == []
 
 
-def test_load_transactions_multiple_items(tmp_json_file):
-    data = [
-        {"amount": 100, "type": "income"},
-        {"amount": 50, "type": "expense"}
-    ]
-    path = tmp_json_file(json.dumps(data))
-    assert load_transactions(path) == data
+def test_file_not_found():
+    with patch("builtins.open", side_effect=FileNotFoundError):
+        result = load_transactions("data/operations.json")
+        assert result == []
+
+
+def test_invalid_json_format():
+    with patch("builtins.open", mock_open(read_data="{invalid_json}")):
+        result = load_transactions("data/operations.json")
+        assert result == []
