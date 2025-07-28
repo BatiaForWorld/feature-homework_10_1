@@ -7,7 +7,13 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY")
 CONVERT_URL = "https://api.apilayer.com/exchangerates_data/convert"
 
+
 def get_transaction_amount_in_rub(transaction: dict) -> float:
+    """
+     Функция, которая принимает на вход транзакцию и возвращает сумму транзакции (amount) в рублях,
+     тип данных - float. Если транзакция была в USD или EUR,
+     происходит обращение к внешнему API для получения текущего курса валют и конвертации суммы операции в рубли.
+    """
     amount = float(transaction.get("amount", 0.0))
     currency = transaction.get("currency", "RUB")
 
