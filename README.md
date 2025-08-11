@@ -136,6 +136,7 @@ operations = load_transactions("../data/operations.json")
 print(f"Загружено операций: {len(operations)}")
 ```
 
+
 7. Модуль external_api.py реализует функцию, 
 которая принимает на вход транзакцию и возвращает сумму транзакции
  (amount) в рублях, тип данных — float. Если транзакция была в USD или EUR,
@@ -147,6 +148,52 @@ https://apilayer.com/exchangerates_data-api.
 Используйте переменные окружения из файла .env для сокрытия чувствительных
 данных (токенов доступа для API). Файла .env и размещён в репозитории данного проекта
 на GitHub
+
+8. Для файлов masks.py и utils.py рефлизованы логеры, которые записываться в папку
+logs в корне проекта. Файлы логов имеют расширение .log.
+
+Код для проверки логеров masks.py:
+```
+# Тестирование логера модуля masks
+if __name__ == "__main__":
+    print("Тестирование логера модуля masks...")
+
+    card_result = get_masc_card_number("1234567890123456")
+    print(f"Маскированная карта: {card_result}")
+
+    card_error1 = get_masc_card_number("123")
+    print(f"Ошибка карты (короткий): {card_error1}")
+
+    card_error2 = get_masc_card_number("1234abcd90123456")
+    print(f"Ошибка карты (буквы): {card_error2}")
+
+    account_result = get_masc_account("12345678901234567890")
+    print(f"Маскированный счет: {account_result}")
+
+    account_error1 = get_masc_account("123")
+    print(f"Ошибка счета (короткий): {account_error1}")
+
+    account_error2 = get_masc_account("1234567890123456789a")
+    print(f"Ошибка счета (буквы): {account_error2}")
+```
+Код для проверки логера utils.py:
+```
+# Тестирование логера модуля utils
+if __name__ == "__main__":
+    print("Тестирование логера модуля utils...")
+
+    transactions = load_transactions("../data/operations.json")
+    print(f"Загружено транзакций: {len(transactions)}")
+
+    transactions_error = load_transactions("несуществующий_файл.json")
+    print(f"Загружено из несуществующего файла: {len(transactions_error)}")
+
+    with open("test_invalid.json", "w") as f:
+        f.write("invalid json content")
+    transactions_invalid = load_transactions("test_invalid.json")
+    print(f"Загружено из некорректного JSON: {len(transactions_invalid)}")
+
+```
 
 
 ## Документация:
