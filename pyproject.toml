@@ -9,6 +9,8 @@ readme = "README.md"
 python = "^3.12"
 python-dotenv = "^1.1.1"
 requests = "^2.32.4"
+pandas = "^2.3.1"
+openpyxl = "^3.1.5"
 
 [tool.pytest.ini_options]
 addopts = "--cov=scr --cov-report=html"
