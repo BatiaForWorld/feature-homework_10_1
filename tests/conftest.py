@@ -81,7 +81,6 @@ def card_number_generator_invalid() -> list:
     return []
 
 
-
 @pytest.fixture(autouse=True)
 def clean_log_file():
     filename = "test_log.txt"
@@ -109,3 +108,44 @@ def tmp_json_file(tmp_path):
 def transaction_usd():
     return {"amount": "100", "currency": "USD"}
 
+
+@pytest.fixture
+def sample_csv_data():
+    return {
+        'content': "id,amount,currency,description\n1,1000.50,RUB,Покупка\n2,2500.00,USD,Перевод",
+        'expected': [
+            {'id': '1', 'amount': '1000.50', 'currency': 'RUB', 'description': 'Покупка'},
+            {'id': '2', 'amount': '2500.00', 'currency': 'USD', 'description': 'Перевод'}
+        ]
+    }
+
+
+@pytest.fixture
+def sample_excel_transactions():
+    return [
+        {'id': 1, 'amount': 1000.50, 'currency': 'RUB', 'description': 'Покупка'},
+        {'id': 2, 'amount': 2500.00, 'currency': 'USD', 'description': 'Перевод'}
+    ]
+
+
+@pytest.fixture
+def file_paths_for_testing():
+    return [
+        'test_file.csv',
+        '/absolute/path/file.csv',
+        '../relative/file.csv',
+        'file with spaces.csv',
+        'файл_на_русском.csv'
+    ]
+
+
+@pytest.fixture(autouse=True)
+def clean_log_file():
+    filename = "test_log.txt"
+
+    with open(filename, "w"):
+        pass
+    yield
+
+    with open(filename, "w"):
+        pass
