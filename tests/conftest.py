@@ -149,3 +149,12 @@ def clean_log_file():
 
     with open(filename, "w"):
         pass
+
+
+@pytest.fixture
+def sample_json():
+    return [
+        {"state": "EXECUTED", "date": "2023-01-01", "amount": "1000", "currency_name": "руб", "description": "Открытие вклада", "from": "Счет 123", "to": "Счет 456"},
+        {"state": "CANCELED", "date": "2023-01-02", "amount": "2000", "currency_name": "USD", "description": "Перевод с карты на карту", "from": "Visa 1111", "to": "Mastercard 2222"},
+        {"state": "EXECUTED", "date": "2023-01-03", "amount": "3000", "currency_name": "руб", "description": "Перевод организации", "from": "Счет 789", "to": "Счет 012"},
+    ]
