@@ -40,4 +40,3 @@ def read_transactions_from_excel(file_path: str) -> list:
         return []
     except Exception:
         return []
-
